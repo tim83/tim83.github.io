@@ -30,6 +30,7 @@
 		
 		h2 {
 			font-family: Roboto;
+			font-weight: 100;
 			text-align: center;
 			font-size: 36px;
 			color: #ffffff;
@@ -55,90 +56,117 @@
 		#clockdiv{
 			font-family: sans-serif;
 			color: #fff;
-			display: inline-block;
 			font-weight: 100;
 			text-align: center;
-			font-size: 30px;
+			font-size: 100px;
+			heigth: 300px;
+			width: 100%;
+			line-height: 100%;
+			text-align: center;
+			display: block;
+			padding: 20px 2px;
+			margin-top: 6%;
 		}
 
 		#clockdiv > div{
-			padding: 10px;
+			padding: 25px 7px;
 			border-radius: 3px;
 			background: #0b3e82;
-			display: inline-block;
 		}
 
 		#clockdiv div > span{
-			padding: 15px;
+			padding: 10px;
+			margin: 5px;
 			border-radius: 3px;
 			background: #032859;
-			display: inline-block;
 		}
 
 		.smalltext{
-			padding-top: 5px;
-			font-size: 16px;
+			font-size: 25px;
+			margin-bottom: -40px;
 		}
+		
+		.clockitem {
+			display: inline-block;
+			
+		}
+		
+		.popup {
+			position: relative;
+			display: inline-block;
+			cursor: pointer;
+		}
+
+		.popup .popuptext {
+			visibility: hidden;
+			width: 500px;
+			color: #fff;
+			text-align: center;
+			border-radius: 6px;
+			padding: 8px 0;
+			position: absolute;
+			z-index: 1;
+			bottom: 125%;
+			left: 50%;
+			margin-left: -230px;
+			font-size: 20px;
+			font-family: Roboto;
+		}
+
+		.popup .show {
+			visibility: visible;
+			-webkit-animation: fadeIn 1s;
+			animation: fadeIn 1s
+		}
+
+		@-webkit-keyframes fadeIn {
+			from {opacity: 0;}
+			to {opacity: 1;}
+		}
+
+		@keyframes fadeIn {
+			from {opacity: 0;}
+			to {opacity:1 ;}
+		} 
 	</style>
-
 	<script language="javascript" type="text/javascript">
-			function Decrement() {
-					currentMinutes = Math.floor(secs / 60);
-					currentSeconds = secs % 60;
-					if(currentSeconds <= 9) currentSeconds = "0" + currentSeconds;
-					secs--;
-					document.getElementById("timerText").innerHTML = "<p id='timerText'>" + currentMinutes + ":" + currentSeconds + "</p>";
-					if(curr	entMinutes == 0)
-						document.getElementById("timerText").innerHTML = "<p id='timerText' style='color:#ffd3d3; line-height: 20%;'>" + currentMinutes + ":" + currentSeconds + "</p><p id='timerText' style='font-size:22px; color:#ffd3d3;'> Gelieve uw gesprek af te ronden.</p>";
-					if(currentMinutes == 0 && currentSeconds == 59)
-						document.getElementById('1minute').play();
-					if(currentMinutes == 0 && currentSeconds == 0)
-						{document.getElementById("timerText").innerHTML = "<p id='timerText' style='font-size:47px;'>" + "Einde speeddate" + "</p>";
-						document.getElementById('ping').play();}
-					if(secs !== -1)
-						setTimeout('Decrement()',1000);			
-			}
-			function getTimeRemaining(endtime) {
-			  var t = Date.parse(endtime) - Date.parse(new Date());
-			  var seconds = Math.floor((t / 1000) % 60);
-			  var minutes = Math.floor((t / 1000 / 60) % 60);
-			  var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
-			  var days = Math.floor(t / (1000 * 60 * 60 * 24));
-			  return {
-				'total': t,
-				'days': days,
-				'hours': hours,
-				'minutes': minutes,
-				'seconds': seconds
-			  };
-			}
-
-			function initializeClock(id, endtime) {
-			  var clock = document.getElementById(id);
-			  var daysSpan = clock.querySelector('.days');
-			  var hoursSpan = clock.querySelector('.hours');
-			  var minutesSpan = clock.querySelector('.minutes');
-			  var secondsSpan = clock.querySelector('.seconds');
-
-			  function updateClock() {
-				var t = getTimeRemaining(endtime);
-
-				daysSpan.innerHTML = t.days;
-				hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
-				minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
-				secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
-
-				if (t.total <= 0) {
-				  clearInterval(timeinterval);
+	    function Decrement() {
+			var minSpan = document.getElementById("minutes");
+			var secSpan = document.getElementById("seconds");
+			var einde = document.getElementById("eindePopup");
+			var afronden = document.getElementById("afrondenPopup");
+			
+        	currentMinutes = Math.floor(secs / 60);
+	        currentSeconds = secs % 60;
+	        if(currentSeconds <= 9)
+				currentSeconds = "0" + currentSeconds;
+			if(currentMinutes <= 9)
+				currentMinutes = "0" + currentMinutes;
+				
+				secs--;
+				minSpan.innerHTML = currentMinutes;
+				secSpan.innerHTML = currentSeconds;
+			if(currentMinutes == 0)
+				{
+					minSpan.innerHTML = currentMinutes;
+					secSpan.innerHTML = currentSeconds;
+					afronden.style.visibility = "visible"
 				}
-			  }
-
-			  updateClock();
-			  var timeinterval = setInterval(updateClock, 1000);
-			}
-
-			var deadline = new Date(Date.parse(new Date()) + 15 * 24 * 60 * 60 * 1000);
-			initializeClock('clockdiv', deadline);
+			else afronden.style.visibility = "hidden"
+			if(currentMinutes == 0 && currentSeconds == 59)
+				document.getElementById('1minute').play();
+			if(currentMinutes == 0 && currentSeconds == 0)
+				{
+					minSpan.innerHTML = "00";
+					secSpan.innerHTML = "00";
+					afronden.style.visibility = "hidden"
+					einde.style.visibility = "visible"
+					document.getElementById('ping').play();
+				}
+			else einde.style.visibility = "hidden"
+			if(secs !== -1)
+				setTimeout('Decrement()',1000);	    
+	    }
 	</script>
 </head>
 <body>
@@ -151,29 +179,27 @@
 				<h2>IMBIT Speeddate</h2>
 			</td>
 		</table>
-<!--
-		<div style="background-color:#0b3e82; width:300px; height:300px; border-radius:150px; line-height: 300px; text-align: center;">
-			<span id="timerText" style="display: inline-block; vertical-align: middle; line-height: normal;">
-				<p>0:00</p>
-			</span>
-		</div>
--->
 		<div id="clockdiv">
-			<div>
-				<span class="minutes"></span>
+			<div class="clockitem">
+				<span id="minutes">00</span>
 				<div class="smalltext">Minuten</div>
 			</div>
-			<div>
-				<span class="seconds"></span>
+			<div class="clockitem">
+				<span id="seconds">00</span>
 				<div class="smalltext">Seconden</div>
 			</div>
 		</div>
-
-
+		<br/><br/>
+		<div class="popup">
+			<center>
+				<span class="popuptext" id='eindePopup'>Einde speeddate.</span>
+				<span class="popuptext" id='afrondenPopup'>Gelieve uw gesprek af te ronden.</span>
+			</center>
+		</div>
 		<br/><br/>
 		<audio id="1minute" src="1minute.mp3" preload="auto"></audio>
 		<audio id="ping" src="ping.mp3" preload="auto"></audio>
-		<button id="button" value="START" onclick="currentMinutes=0; currentSeconds=0; mins=16; secs=mins*60; setTimeout(Decrement);">
+		<button id="button" value="START" onclick="currentMinutes=0; currentSeconds=0; mins=.1; secs=mins*60; setTimeout(Decrement);">
 			<center>
 				<div style="margin-left:7px; width: 0; height: 0; border-top: 20px solid transparent; border-bottom: 20px solid transparent; border-left: 28px solid white;"></div>
 			</center>
