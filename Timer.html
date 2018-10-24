@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Speeddate Timer</title>
+	<meta name="description" content="Countdown Timer">
+	<meta name="keywords" content="speeddate, timer">
+	<link href='http://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	
+	<style>
+		body {
+			background-color: #032859;
+		}
+		
+		p {
+			font-family: Roboto;
+			text-align: center;
+			font-size: 70px;
+			color: #ffffff;
+		}
+		
+		h1 {
+			font-family: Roboto;
+			text-align: center;
+			font-size: 40px;
+			color: #ffffff;
+			line-height: 20%;
+		}
+		
+		h2 {
+			font-family: Roboto;
+			text-align: center;
+			font-size: 36px;
+			color: #ffffff;
+			line-height: 50%;
+		}
+		
+		#button {
+			font-family: Roboto;
+			font-size: 19px;
+			color: #ffffff;
+			background-color: #0b3e82;
+			padding:8px;
+			height: 75px;
+			width: 75px;
+			border: 0;
+			border-radius: 50px;
+		}
+		
+		#button:hover {
+			background-color: #a9b9ce;
+		}
+		
+		#clockdiv{
+			font-family: sans-serif;
+			color: #fff;
+			display: inline-block;
+			font-weight: 100;
+			text-align: center;
+			font-size: 30px;
+		}
+
+		#clockdiv > div{
+			padding: 10px;
+			border-radius: 3px;
+			background: #0b3e82;
+			display: inline-block;
+		}
+
+		#clockdiv div > span{
+			padding: 15px;
+			border-radius: 3px;
+			background: #032859;
+			display: inline-block;
+		}
+
+		.smalltext{
+			padding-top: 5px;
+			font-size: 16px;
+		}
+	</style>
+
+	<script language="javascript" type="text/javascript">
+			function Decrement() {
+					currentMinutes = Math.floor(secs / 60);
+					currentSeconds = secs % 60;
+					if(currentSeconds <= 9) currentSeconds = "0" + currentSeconds;
+					secs--;
+					document.getElementById("timerText").innerHTML = "<p id='timerText'>" + currentMinutes + ":" + currentSeconds + "</p>";
+					if(curr	entMinutes == 0)
+						document.getElementById("timerText").innerHTML = "<p id='timerText' style='color:#ffd3d3; line-height: 20%;'>" + currentMinutes + ":" + currentSeconds + "</p><p id='timerText' style='font-size:22px; color:#ffd3d3;'> Gelieve uw gesprek af te ronden.</p>";
+					if(currentMinutes == 0 && currentSeconds == 59)
+						document.getElementById('1minute').play();
+					if(currentMinutes == 0 && currentSeconds == 0)
+						{document.getElementById("timerText").innerHTML = "<p id='timerText' style='font-size:47px;'>" + "Einde speeddate" + "</p>";
+						document.getElementById('ping').play();}
+					if(secs !== -1)
+						setTimeout('Decrement()',1000);			
+			}
+			function getTimeRemaining(endtime) {
+			  var t = Date.parse(endtime) - Date.parse(new Date());
+			  var seconds = Math.floor((t / 1000) % 60);
+			  var minutes = Math.floor((t / 1000 / 60) % 60);
+			  var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+			  var days = Math.floor(t / (1000 * 60 * 60 * 24));
+			  return {
+				'total': t,
+				'days': days,
+				'hours': hours,
+				'minutes': minutes,
+				'seconds': seconds
+			  };
+			}
+
+			function initializeClock(id, endtime) {
+			  var clock = document.getElementById(id);
+			  var daysSpan = clock.querySelector('.days');
+			  var hoursSpan = clock.querySelector('.hours');
+			  var minutesSpan = clock.querySelector('.minutes');
+			  var secondsSpan = clock.querySelector('.seconds');
+
+			  function updateClock() {
+				var t = getTimeRemaining(endtime);
+
+				daysSpan.innerHTML = t.days;
+				hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+				minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+				secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+
+				if (t.total <= 0) {
+				  clearInterval(timeinterval);
+				}
+			  }
+
+			  updateClock();
+			  var timeinterval = setInterval(updateClock, 1000);
+			}
+
+			var deadline = new Date(Date.parse(new Date()) + 15 * 24 * 60 * 60 * 1000);
+			initializeClock('clockdiv', deadline);
+	</script>
+</head>
+<body>
+	<center>
+		<table style="border:0;">
+			<td width="200px">
+				<img src="logos/IMBIT schild wit.png" height="120px" style="align:left;" />
+			</td><td>
+				<h1>MEET THE BOSS</h1>
+				<h2>IMBIT Speeddate</h2>
+			</td>
+		</table>
+<!--
+		<div style="background-color:#0b3e82; width:300px; height:300px; border-radius:150px; line-height: 300px; text-align: center;">
+			<span id="timerText" style="display: inline-block; vertical-align: middle; line-height: normal;">
+				<p>0:00</p>
+			</span>
+		</div>
+-->
+		<div id="clockdiv">
+			<div>
+				<span class="minutes"></span>
+				<div class="smalltext">Minuten</div>
+			</div>
+			<div>
+				<span class="seconds"></span>
+				<div class="smalltext">Seconden</div>
+			</div>
+		</div>
+
+
+		<br/><br/>
+		<audio id="1minute" src="1minute.mp3" preload="auto"></audio>
+		<audio id="ping" src="ping.mp3" preload="auto"></audio>
+		<button id="button" value="START" onclick="currentMinutes=0; currentSeconds=0; mins=16; secs=mins*60; setTimeout(Decrement);">
+			<center>
+				<div style="margin-left:7px; width: 0; height: 0; border-top: 20px solid transparent; border-bottom: 20px solid transparent; border-left: 28px solid white;"></div>
+			</center>
+		</button>
+		<br/><br/><br/><br/>
+		<div style="position: absolute; bottom:0; width:100%; height: 60px; background-color:#ffffff; margin-left:-8px; margin-bottom:0px; padding-top: 20px;">
+			<img src="logos/Deloitte.png" style="height:30px; padding-bottom: 8px; padding-right:30px;" />
+			<img src="logos/Exellys.png" style="height:30px; padding-bottom: 8px; padding-right:30px;" />
+			<img src="logos/Spikes.png" style="height:45px; padding-right:30px;" />
+			<img src="logos/Flexso.png" style="height:32px; padding-bottom: 8px;" />
+		</div>
+	</center>
+</body>
+</html>
