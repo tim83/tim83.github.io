@@ -5,12 +5,13 @@
 	<title>Speeddate Timer</title>
 	<meta name="description" content="Countdown Timer">
 	<meta name="keywords" content="speeddate, timer">
-<!--
-	<link href='http://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
--->
-	<link href='Roboto.css' rel='stylesheet' type='text/css'>
 	<link rel="icon" type="image/png" href="logos/IMBIT Schild Kleur-icon.png">
+	
+	<!-- Import CCS (fonts) -->
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link href='Roboto.css' rel='stylesheet' type='text/css'>
+	
+	<!-- CCS -->
 	<style>
 		body {
 			background-color: #032859;
@@ -145,6 +146,8 @@
 			border:0;
 		}
 	</style>
+	
+	<!-- Javascript -->
 	<script language="javascript" type="text/javascript">
 	    function Decrement() {
 			var minSpan = document.getElementById("minutes");
@@ -187,14 +190,16 @@
 </head>
 <body>
 	<center>
+		<!-- Header -->
 		<table style="border:0; margin-top: 30px;">
 			<td width="200px">
 				<img src="logos/IMBIT Schild Wit.png" height="200px" style="align:left;" />
 			</td><td>
-				<h1>MEET THE BOSS</h1>
-				<h2>IMBIT Speeddate</h2>
+				<h1>IMBIT</h1>
+				<h2>Impact Programme</h2>
 			</td>
 		</table>
+		<!-- Tijds weergave -->
 		<div id="clockdiv">
 			<div class="clockitem"><hr>
 				<span id="minutes">00</span>
@@ -206,6 +211,7 @@
 			</div>
 		</div>
 		<br/><br/><br/>
+		<!-- Aankondigingen -->
 		<div class="popup">
 			<center>
 				<span class="popuptext" id='eindePopup'>Einde speeddate.</span>
@@ -215,18 +221,19 @@
 		<br/><br/><br/>
 		<audio id="1minute" src="1minute.mp3" preload="auto"></audio>
 		<audio id="ping" src="ping.mp3" preload="auto"></audio>
-		<button id="button" value="START" onclick="currentMinutes=0; currentSeconds=0; mins=16; secs=mins*60; setTimeout(Decrement);">
+		<!-- Play knop -->
+		<button id="button" value="START" onclick="currentMinutes=0; currentSeconds=0; mins=15; secs=mins*60; setTimeout(Decrement);">
 			<center>
 				<div style="margin-left:7px; width: 0; height: 0; border-top: 20px solid transparent; border-bottom: 20px solid transparent; border-left: 28px solid white;"></div>
 			</center>
-		</button>
+		</button><!--
 		<br/><br/><br/><br/>
 		<div style="position: absolute; bottom:0; width:100%; height: 60px; background-color:#ffffff; margin-left:-8px; margin-bottom:0px; padding-top: 20px;">
 			<img src="logos/Deloitte.png" style="height:30px; padding-bottom: 8px; padding-right:30px;" />
 			<img src="logos/Exellys.png" style="height:30px; padding-bottom: 8px; padding-right:30px;" />
 			<img src="logos/Spikes.png" style="height:37px; padding-right:30px;" />
 			<img src="logos/Flexso.png" style="height:32px; padding-bottom: 8px;" />
-		</div>
+		</div> -->
 	</center>
 </body>
 </html>
