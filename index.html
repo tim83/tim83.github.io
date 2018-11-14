@@ -145,6 +145,12 @@
 			padding:0px;
 			border:0;
 		}
+		
+		.logo {
+			height:30px;
+			padding-bottom: 8px;
+			padding-right:30px;
+		}
 	</style>
 	
 	<!-- Javascript -->
@@ -222,18 +228,23 @@
 		<audio id="1minute" src="1minute.mp3" preload="auto"></audio>
 		<audio id="ping" src="ping.mp3" preload="auto"></audio>
 		<!-- Play knop -->
-		<button id="button" value="START" onclick="currentMinutes=0; currentSeconds=0; mins=10; secs=mins*60; setTimeout(Decrement);">
+		<button id="button" value="START" onclick="currentMinutes=0; currentSeconds=0; mins=16; secs=mins*60; setTimeout(Decrement);">
 			<center>
 				<div style="margin-left:7px; width: 0; height: 0; border-top: 20px solid transparent; border-bottom: 20px solid transparent; border-left: 28px solid white;"></div>
 			</center>
-		</button><!--
+		</button>
 		<br/><br/><br/><br/>
+		<!-- Logo's -->
 		<div style="position: absolute; bottom:0; width:100%; height: 60px; background-color:#ffffff; margin-left:-8px; margin-bottom:0px; padding-top: 20px;">
-			<img src="logos/Deloitte.png" style="height:30px; padding-bottom: 8px; padding-right:30px;" />
-			<img src="logos/Exellys.png" style="height:30px; padding-bottom: 8px; padding-right:30px;" />
-			<img src="logos/Spikes.png" style="height:37px; padding-right:30px;" />
-			<img src="logos/Flexso.png" style="height:32px; padding-bottom: 8px;" />
-		</div> -->
+			<img src="logos/AE.png" class="logo" />
+			<img src="logos/Bank van Breda.png" class="logo" />
+			<img src="logos/Deloitte.png" class="logo" />
+			<img src="logos/Exellys.png" class="logo" />
+			<img src="logos/Flexso.png" class="logo" />
+			<img src="logos/Janssen.png" class="logo" />
+			<img src="logos/KPMG.png" class="logo" />
+			<img src="logos/Spikes.png" class="logo" />
+		</div>
 	</center>
 </body>
 </html>
